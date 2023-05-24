@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "woodworking-blog"
+version = "0.1.0"
+description = ""
+authors = ["Derek Morey <derek.o.morey@gmail.com>"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.3.2"
+flask-login = "^0.6.2"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

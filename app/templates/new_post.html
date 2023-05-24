@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+#editor { 
+	position: relative;
+	height: 40rem;
+	/*
+	margin-left: auto;
+	margin-right: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	*/
+}
+</style>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='vendor/ace-builds-1.5.0/src-min-noconflict/ace.js') }}"></script>
+<script>
+	const editor = ace.edit('editor');
+	editor.setTheme('ace/theme/dracula');
+	editor.session.setMode('ace/mode/markdown');
+	editor.setKeyboardHandler('ace/keyboard/vim');
+	editor.setShowPrintMargin(false);
+	document.getElementById('editor').style.fontSize='16px';
+</script>
+{% endblock %}
+
+{% block body %}
+<section class="section">
+	<form action="" method="post" class="pb-3">
+		<div class="level">
+			<div class="level-left">
+				<div class="level-item">
+					<div class="field is-horizontal">
+						<div class="field-label">
+							<label class="label">Title</label>
+						</div>
+						<div class="field-body">
+							<div class="control">
+								<input class="input" type="text" name="title" id="title" placeholder="Post Title">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="level-item">
+					<div class="field is-horizontal">
+						<div class="field-label">
+							<label class="label">Date</label>
+						</div>
+						<div class="field-body">
+							<div class="control">
+								<input class="input" type="datetime" name="publish_date" id="publish_date" placeholder="Publish Date">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="level-right">
+				<div class="level-item">
+					<input type="submit" value="Save" class="button is-primary">
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="has-background-dark p-2">
+		<div id="editor"></div>
+	</div>
+</section>
+{% endblock %}

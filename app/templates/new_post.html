@@ -4,15 +4,7 @@
 <style>
 #editor { 
 	position: relative;
-	height: 40rem;
-	/*
-	margin-left: auto;
-	margin-right: auto;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	*/
+	height: 50rem;
 }
 </style>
 {% endblock %}
@@ -20,55 +12,56 @@
 {% block javascript %}
 <script src="{{ url_for('static', filename='vendor/ace-builds-1.5.0/src-min-noconflict/ace.js') }}"></script>
 <script>
-	const editor = ace.edit('editor');
-	editor.setTheme('ace/theme/dracula');
-	editor.session.setMode('ace/mode/markdown');
-	editor.setKeyboardHandler('ace/keyboard/vim');
-	editor.setShowPrintMargin(false);
-	document.getElementById('editor').style.fontSize='16px';
+	(() => {
+		const editor = ace.edit('editor');
+		editor.setTheme('ace/theme/dracula');
+		editor.session.setMode('ace/mode/markdown');
+		editor.setKeyboardHandler('ace/keyboard/vim');
+		editor.setShowPrintMargin(false);
+		document.getElementById('editor').style.fontSize='16px';
+
+		const form = document.getElementById('post-form');
+		form.addEventListener('submit', function(evt) {
+			// save editor text to hidden form input so it gets submitted in the form
+			form['editor_text'].value = editor.getValue();
+		});
+	})();
 </script>
 {% endblock %}
 
 {% block body %}
-<section class="section">
-	<form action="" method="post" class="pb-3">
-		<div class="level">
-			<div class="level-left">
-				<div class="level-item">
-					<div class="field is-horizontal">
-						<div class="field-label">
-							<label class="label">Title</label>
-						</div>
-						<div class="field-body">
-							<div class="control">
-								<input class="input" type="text" name="title" id="title" placeholder="Post Title">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="level-item">
-					<div class="field is-horizontal">
-						<div class="field-label">
-							<label class="label">Date</label>
-						</div>
-						<div class="field-body">
-							<div class="control">
-								<input class="input" type="datetime" name="publish_date" id="publish_date" placeholder="Publish Date">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="level-right">
-				<div class="level-item">
-					<input type="submit" value="Save" class="button is-primary">
-				</div>
-			</div>
-		</div>
-	</form>
+<section class="row">
+	<div class="col-12">
 
-	<div class="has-background-dark p-2">
-		<div id="editor"></div>
+		<form id="post-form" action="{{ url_for('blog.new_post') }}" method="post" class="row row-cols align-items-center pb-3">
+				<div class="col-8">
+					<div class="row">
+						<label for="title" class="col-sm-1 col-form-label">Title</label>
+						<div class="col-sm-11">
+							<input class="col-sm-10 form-control" type="text" name="title" id="title" placeholder="Post Title">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-3">
+					<div class="row">
+						<label for="publish_date" class="col-sm-1 col-form-label">Date</label>
+						<div class="col-sm-11">
+							<input class="form-control" type="datetime" name="publish_date" id="publish_date" placeholder="Publish Date">
+						</div>
+					</div>
+				</div>
+
+				<input type="hidden" name="editor_text" id="editor_text">
+				<div class="col-1">
+					<input type="submit" value="Save" class="btn btn-primary">
+				</div>
+		</form>
+
+		<div class="text-bg-dark p-2">
+			<div id="editor"></div>
+		</div>
+
 	</div>
 </section>
 {% endblock %}

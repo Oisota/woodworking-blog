@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 from flask_login import login_required
 
 def posts():
@@ -17,4 +17,7 @@ def edit_post(post_id):
 #@login_required
 def new_post():
     """Draft a new post"""
+    if request.method == 'POST':
+        print(request.form)
+        return redirect(url_for('blog.new_post'))
     return render_template('new_post.html')

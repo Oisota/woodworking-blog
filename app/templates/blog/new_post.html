@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block style %}
+<style>
+#editor { 
+	position: relative;
+	height: 50rem;
+}
+</style>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='vendor/ace-builds-1.5.0/src-min-noconflict/ace.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ace-setup.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<section class="row">
+	<div class="col-12">
+
+		<form id="post-form" action="{{ url_for('blog.new_post') }}" method="post" class="row row-cols align-items-center pb-3">
+			{{ form.csrf_token }}
+			<div class="col-9">
+				<div class="row">
+					{{ form.title.label(class_='col-sm-1 col-form-label') }}
+					<div class="col-sm-11">
+						{{ form.title(class_='form-control', placeholder='Post Title')}}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-2">
+				<div class="row">
+					{{ form.publish_date.label(class_='col-sm-2 col-form-label') }}
+					<div class="col-sm-10">
+						{{ form.publish_date(class_='form-control', placeholder='Publish Date')}}
+					</div>
+				</div>
+			</div>
+
+			{{ form.hidden_tag() }}
+			<div class="col-1">
+				<input type="submit" value="Save" class="btn btn-primary">
+			</div>
+		</form>
+
+		<div class="text-bg-dark p-2">
+			<div id="editor"></div>
+		</div>
+
+	</div>
+</section>
+{% endblock %}

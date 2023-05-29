@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="row">
+	<div class="col-12">
+		<ul class="list-group">
+			{% for p in posts %}
+			<li class="list-group-item">
+				<a href="{{ url_for('blog.post', publish_date=p.publish_date, title_slug=p.title_slug) }}">{{ p.title }}</a>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}

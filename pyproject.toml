@@ -13,6 +13,7 @@ flask-login = "^0.6.2"
 python-dotenv = "^1.0.0"
 flask-wtf = "^1.1.1"
 python-slugify = "^8.0.1"
+markdown = "^3.4.3"
 
 
 [build-system]

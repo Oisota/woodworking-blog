@@ -15,4 +15,7 @@
 		form['content'].value = editor.getValue();
 	});
 
+	// set editor content to match form
+	editor.setValue(form['content'].value);
+
 })();

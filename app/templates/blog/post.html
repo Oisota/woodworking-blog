@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/pygments.css') }}">
+{% endblock %}
+
 {% block body %}
 <h1>{{ post.title }}</h1>
 <p>{{ post.publish_date }}</p>

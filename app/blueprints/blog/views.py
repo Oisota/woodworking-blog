@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import redirect, url_for
 from flask_login import login_required
 import markdown
+from markdown.extensions.codehilite import CodeHiliteExtension
 
 from app.util import render
 from app.services.post import save_post, get_all_posts, get_one_post, get_post_by_id, update_post
@@ -17,7 +18,7 @@ def posts():
 def post(publish_date, title_slug):
     """View single post"""
     post = get_one_post(publish_date, title_slug)
-    content = markdown.markdown(post['body'])
+    content = markdown.markdown(post['body'], extensions=['markdown.extensions.fenced_code', CodeHiliteExtension()])
     return render('blog/post.html', {
         'post': post,
         'content': content

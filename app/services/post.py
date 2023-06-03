@@ -4,7 +4,6 @@ from datetime import datetime
 from app.database import get_db, query_db
 
 def get_all_posts():
-    db = get_db()
     query = """
     select id, title, title_slug, publish_date, body
     from post;
@@ -13,17 +12,17 @@ def get_all_posts():
     return result
 
 def get_one_post(publish_date, title_slug):
-    db = get_db()
+    start_date = publish_date.replace(hour=0, minute=0, second=0).timestamp()
+    end_date = publish_date.replace(hour=23, minute=59, second=59).timestamp()
     query = """
     select id, title, title_slug, publish_date, body
     from post
-    where publish_date = ? and title_slug = ?;
+    where publish_date >= ? and publish_date <= ? and title_slug = ?;
     """
-    result = query_db(query, (publish_date, title_slug), one=True)
+    result = query_db(query, (start_date, end_date, title_slug), one=True)
     return result
 
 def get_post_by_id(post_id):
-    db = get_db()
     query = """
     select id, title, title_slug, publish_date, body
     from post

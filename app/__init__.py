@@ -6,6 +6,7 @@ from flask import Flask, g
 from app.exts import register_extensions
 from app.blueprints import register_blueprints
 from app.cli import register_cli
+from app.template_filters import register_filters
 
 def create_app():
     """App Factory"""
@@ -15,6 +16,7 @@ def create_app():
     register_extensions(app)
     register_cli(app)
     register_blueprints(app)
+    register_filters(app)
 
     @app.teardown_appcontext
     def close_connection(exception):

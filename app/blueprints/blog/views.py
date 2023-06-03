@@ -15,8 +15,12 @@ def posts():
         'posts': posts,
     })
 
-def post(publish_date, title_slug):
+def post(year, month, day, title_slug):
     """View single post"""
+    year = int(year)
+    month = int(month)
+    day = int(day)
+    publish_date = datetime(year, month, day)
     post = get_one_post(publish_date, title_slug)
     content = markdown.markdown(post['body'], extensions=['markdown.extensions.fenced_code', CodeHiliteExtension()])
     return render('blog/post.html', {

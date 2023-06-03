@@ -5,9 +5,15 @@
 {% endblock %}
 
 {% block body %}
-<h1>{{ post.title }}</h1>
-<p>{{ post.publish_date }}</p>
-<div>
-	{{ content | safe }}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-6 offset-xl-3">
+			<h1>{{ post.title }}</h1>
+			<p>{{ post.publish_date | date_format }}</p>
+			<div>
+				{{ content | safe }}
+			</div>
+		</div>
+	</div>
 </div>
 {% endblock %}
